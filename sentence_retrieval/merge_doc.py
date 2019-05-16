@@ -7,7 +7,7 @@ from util.doc_util import DocRetrievalTool
 import config
 
 doc_tool = DocRetrievalTool()
-root = os.path.join(config.DOC_RETRIEVAL_ROOT, "doc_process")
+root = os.path.join(config.SENT_RETRIEVAL_ROOT, "doc_process")
 doc_tool.mkdir(root)
 
 

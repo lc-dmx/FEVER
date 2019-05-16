@@ -128,7 +128,7 @@ class PyLuceneDocRetrieval(object):
         print("Complete all wiki pages!")
 
     def select_doc(self, desired_length=-1):
-        path = config.TEST_DATA_PATH
+        path = config.DEV_DATA_PATH
         if desired_length == -1:
             data_set = doc_tool.get_data_set(path)
         else:
@@ -142,13 +142,15 @@ class PyLuceneDocRetrieval(object):
         searcher = IndexSearcher(reader)
         searcher.setSimilarity(BM25Similarity())
 
+        ner_list = doc_tool.load_json_file(os.path.join(config.DOC_RETRIEVAL_ROOT, "claim_process"), "dev_ner_list.json")
+
         pre_list = {}
         for key in data_set:
             claim = data_set[key]['claim']
             label = 'SUPPORTS'
             evidence_list = []
 
-            my_query = QueryParser("sentence_text", StandardAnalyzer()).parse(self.process_claim(claim))
+            my_query = QueryParser("sentence_text", StandardAnalyzer()).parse(self.process_claim(" ".join(ner_list[key])))
             total_hits = searcher.search(my_query, 20).scoreDocs
 
             for hit in total_hits:
@@ -166,9 +168,9 @@ class PyLuceneDocRetrieval(object):
 
         print("Start writing...")
         doc_tool.dump_json_file(config.DOC_RETRIEVAL_ROOT, "testoutput.json", pre_list)
-        f = zipfile.ZipFile('testoutput.zip', 'w', zipfile.ZIP_DEFLATED)
-        f.write(os.path.join(config.DOC_RETRIEVAL_ROOT, "testoutput.json"))
-        f.close()
+        # f = zipfile.ZipFile('testoutput.zip', 'w', zipfile.ZIP_DEFLATED)
+        # f.write(os.path.join(config.DOC_RETRIEVAL_ROOT, "testoutput.json"))
+        # f.close()
 
 
 if __name__ == '__main__':

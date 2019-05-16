@@ -23,8 +23,8 @@ class NER(object):
         :return: ner list
         """
         # change the path dir
-        path = config.TRAIN_DATA_PATH
-        # path = config.DEV_DATA_PATH
+        # path = config.TRAIN_DATA_PATH
+        path = config.DEV_DATA_PATH
         # path = config.TEST_DATA_PATH
 
         if desired_length == -1:
@@ -44,8 +44,8 @@ class NER(object):
             print(len(ner_list))
 
         print("Start writing...")
-        doc_tool.dump_json_file(root, "train_ner_list.json", ner_list)
-        # doc_tool.dump_json_file(root, "dev_ner_list.json", ner_list)
+        # doc_tool.dump_json_file(root, "train_ner_list.json", ner_list)
+        doc_tool.dump_json_file(root, "dev_ner_list.json", ner_list)
         # doc_tool.dump_json_file(root, "test_ner_list.json", ner_list)
 
 
