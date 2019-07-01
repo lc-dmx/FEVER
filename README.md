@@ -10,3 +10,6 @@ Used for document retrieval and sentence retrieval
 
 ## BERT
 Used for model training
+
+# Result
+Finally, it reaches document selection F1: 63.0%, sentence selection F1: 49.9%, label accuracy: 63.7%.
